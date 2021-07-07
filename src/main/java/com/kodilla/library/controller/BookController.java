@@ -9,24 +9,24 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/library")
 class BookController {
 
     private final BookService service;
 
     @GetMapping
-    public List<BookDto> getBooks() {
-        return BookMapper.toBookDtoList(service.getBooks());
+    public List<BookDto> m1() {
+        return BookMapper.toBookDtoList(service.m1());
     }
 
     @PostMapping
-    public void createBook(@RequestBody BookDto bookDto) {
-        service.createBook(BookMapper.toBook(bookDto));
+    public void m2(@RequestBody BookDto bookDto) {
+        service.m2(BookMapper.toBook(bookDto));
     }
 
     @DeleteMapping(path = "/{index}")
-    public void deleteBook(@PathVariable("index") int index) {
-        service.deleteBook(index);
+    public void m3(@PathVariable("index") int index) {
+        service.m3(index);
     }
 
 }

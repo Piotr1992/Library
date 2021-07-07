@@ -8,31 +8,31 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-/*    @Bean
+    @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
-    }       */
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("librarian").password("librarian").roles("LIBRARIAN");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+        auth.inMemoryAuthentication().withUser("R1").password("passwdR1").roles("R1");
+        auth.inMemoryAuthentication().withUser("R2").password("passwdR2").roles("R2");
+        auth.inMemoryAuthentication().withUser("R3").password("passwdR3").roles("R3");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-            .mvcMatchers(HttpMethod.GET, "/books/**")
-            .hasAnyRole("USER", "LIBRARIAN", "ADMIN")
+            .mvcMatchers(HttpMethod.GET, "/library/**")
+            .hasAnyRole("R1", "R2", "R3")
             .mvcMatchers(HttpMethod.POST, "/**")
-            .hasAnyRole("LIBRARIAN", "ADMIN")
+            .hasAnyRole("R2", "R3")
             .mvcMatchers(HttpMethod.DELETE, "/**")
-            .hasAnyRole("ADMIN")
+            .hasAnyRole("R3")
             .anyRequest()
             .fullyAuthenticated()
             .and()

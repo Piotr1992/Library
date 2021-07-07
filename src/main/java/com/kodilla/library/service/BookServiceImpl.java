@@ -11,17 +11,17 @@ class BookServiceImpl implements BookService {
     private final BookRepository repository;
 
     @Override
-    public List<Book> getBooks() {
+    public List<Book> m1() {
         return repository.findAll();
     }
 
     @Override
-    public void createBook(Book book) {
+    public void m2(Book book) {
         repository.save(book);
     }
 
     @Override
-    public void deleteBook(int index) {
+    public void m3(int index) {
         repository.deleteByIndex(index);
     }
 
